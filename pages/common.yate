@@ -1,0 +1,46 @@
+module 'main'
+
+match / {
+	html('<!DOCTYPE html>')
+	<html>
+		<head>
+			<title>
+				apply . meta-title
+			</title>
+		</head>
+		<body>
+			apply . header 
+			apply . body
+			apply . footer
+		</body>
+	</html>
+}
+
+match / header {
+	<header class="header">
+		<h1 class="header__title">{.page}</h1>
+	</header>
+
+	<hr />
+
+	<br />
+	<br />
+}
+
+match / footer {
+	<br />
+	<br />
+	<br />
+
+	<hr />
+
+	<footer class="footer">
+		'&copy; App.'
+	</footer>
+}
+
+match / meta-title {
+	'Kino'
+}
+
+match / body {}

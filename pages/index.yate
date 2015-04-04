@@ -1,0 +1,9 @@
+include "./common.yate"
+
+match / body {
+	<form action="/" >
+		<label for="id-input">ID фильма: </label>
+		<input type="text" id="id-input" />
+		<button tyoe="submit">Поиск</button>
+	</form>
+}
