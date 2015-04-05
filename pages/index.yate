@@ -1,9 +1,15 @@
 include "./common.yate"
 
 match / body {
-	<form action="/" >
+	<form action="/" method="get" id="id-get">
 		<label for="id-input">ID фильма: </label>
-		<input type="text" id="id-input" />
-		<button tyoe="submit">Поиск</button>
+		<input type="text" id="id-input" name="id" value="{.film.id}" />
+		<button tyoe="submit" form="id-get">Поиск</button>
 	</form>
+
+	if (exists(.film)) {
+		<div class="film">
+			.film.title + ' ' + .film.rating
+		</div>
+	}
 }
