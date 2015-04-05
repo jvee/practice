@@ -1,13 +1,23 @@
 var express = require('express');
 var app = express();
 
-app.get('/', require('./controllers/indexController'));
+// Database
+var tungus = require('tungus');
+var mongoose = require('mongoose');
 
-var server = app.listen(3000, function () {
+mongoose.connect('tingodb://'+__dirname+'/db', function (err) {
+  // if we failed to connect, abort
+  if (err) throw err;
 
-  var host = server.address().address;
-  var port = server.address().port;
+  var server = app.listen(3000, function () {
 
-  console.log('Example app listening at http://%s:%s', host, port);
+    var host = server.address().address;
+    var port = server.address().port;
 
+    console.log('Example app listening at http://%s:%s', host, port);
+
+  });
+  
 });
+
+app.get('/', require('./controllers/indexController'));
