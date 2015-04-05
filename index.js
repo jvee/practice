@@ -1,16 +1,7 @@
 var express = require('express');
 var app = express();
 
-var yate = require('yate');
-
-
-app.get('/', function (req, res) {
-  var data = {data: {page: 'index'}};
-  var template = './pages/index.yate';
-  var renderResult = yate.run(template, null, data);
-
-  res.send(renderResult);
-});
+app.get('/', require('./controllers/indexController'));
 
 var server = app.listen(3000, function () {
 
