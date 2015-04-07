@@ -1,5 +1,5 @@
 var yate = require('yate');
-var Film = require('../models/Film');
+var Film = require('../orm/').collections.film;
 
 module.exports = function (req, res) {
 	var data = {data: {page: 'index'}};

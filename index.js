@@ -1,12 +1,9 @@
 var express = require('express');
+var orm = require('./orm/');
+
 var app = express();
 
-// Database
-var tungus = require('tungus');
-var mongoose = require('mongoose');
-
-mongoose.connect('tingodb://'+__dirname+'/db', function (err) {
-  // if we failed to connect, abort
+orm.init(function (err, orm) {
   if (err) throw err;
 
   var server = app.listen(3000, function () {

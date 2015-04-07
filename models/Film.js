@@ -1,49 +1,60 @@
-var mongoose = require('mongoose');
+var Waterline = require('waterline');
 var kinopoisk = require('node-kinopoisk-ru');
 
-var Schema = mongoose.Schema;
+var Film = Waterline.Collection.extend({
 
-var filmShema = Schema({
-  id: Number,
-  title: String,
-  rating: Number
-});
+	identity: 'Film',
 
-filmShema.set('autoIndex', false);
+	connection: 'myLocalDisk',
 
-filmShema.statics.getById = function (id, callback) {
-	if (!callback) {
-		return;
-	}
+	schema: true,
 
-	if (!id) {
-		callback(new Error('No ID'));
-	}
+	migrate: 'safe',
 
-	// TODO: check id type
+	attributes: {
+		id: {
+			type: 'integer',
+			unique: 'true'
+		},
+		title: 'string',
+		rating: 'float'
+	},
 
-	Film.findOne({id: id}, function (error, film) {
-		if (error) {
-			return callback(error);
+	getById: function (id, callback) {
+		var _this = this;
+
+		if (!callback) {
+			return;
 		}
 
-		if (film) {
-			return callback(null, film);
+		if (!id) {
+			callback(new Error('No ID'));
 		}
 
-		kinopoisk.getById(id, null, function (error, filmData) {
+		// TODO: check id type
+
+		this.findOne({id: id}, function (error, film) {
 			if (error) {
 				return callback(error);
 			}
 
-			Film
-				.create(filmData)
-				.then(callback.bind(null, null), callback);
+			if (film) {
+				return callback(null, film);
+			}
+
+			kinopoisk.getById(id, null, function (error, filmData) {
+				if (error) {
+					return callback(error);
+				}
+
+				_this
+					.create(filmData)
+					.then(callback.bind(null, null), callback);
+			});
 		});
-	});
 
-};
+	}
 
-var Film = mongoose.model('Film', filmShema);
+});
 
 module.exports = Film;

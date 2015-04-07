@@ -11,8 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.12.3",
-    "mongoose": "^4.0.1",
-    "tungus": "0.0.4"
+    "waterline": "^0.10.20",
+    "sails-disk": "^0.10.7"
   },
   "devDependencies": {
     "yate": "0.0.76",
