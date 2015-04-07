@@ -17,7 +17,8 @@ var Film = Waterline.Collection.extend({
 			unique: 'true'
 		},
 		title: 'string',
-		rating: 'float'
+		rating: 'float',
+		poster: 'string'
 	},
 
 	getById: function (id, callback) {

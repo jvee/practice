@@ -10,6 +10,9 @@ match / body {
 	if (exists(.film)) {
 		<div class="film">
 			.film.title + ' ' + .film.rating
+			<div class='film__poseter'>
+				<img src="{.film.poster}" width="200"/>
+			</div>
 		</div>
 	}
 }
