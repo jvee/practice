@@ -13,7 +13,7 @@ module.exports = function (req, res) {
 		return res.send(renderResult);
 	}
 
-	Film.getById(id, function (error, result) {
+	Film.findOrCreate({id: id}, {id:id}, function (error, result) {
 		if (error) {
 			renderResult = yate.run(template, null, data);
 			return res.send(renderResult);

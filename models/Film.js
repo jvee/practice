@@ -3,13 +3,13 @@ var kinopoisk = require('node-kinopoisk-ru');
 
 var Film = Waterline.Collection.extend({
 
-	identity: 'Film',
+	identity: 'film',
 
 	connection: 'myLocalDisk',
 
 	schema: true,
 
-	migrate: 'safe',
+	migrate: 'alter',
 
 	attributes: {
 		id: {
@@ -21,39 +21,18 @@ var Film = Waterline.Collection.extend({
 		poster: 'string'
 	},
 
-	getById: function (id, callback) {
-		var _this = this;
-
-		if (!callback) {
-			return;
-		}
-
-		if (!id) {
-			callback(new Error('No ID'));
-		}
-
-		// TODO: check id type
-
-		this.findOne({id: id}, function (error, film) {
+	beforeCreate: function (data, next) {
+		kinopoisk.getById(data.id, null, function (error, filmData) {
 			if (error) {
-				return callback(error);
+				return next(error);
 			}
 
-			if (film) {
-				return callback(null, film);
-			}
-
-			kinopoisk.getById(id, null, function (error, filmData) {
-				if (error) {
-					return callback(error);
-				}
-
-				_this
-					.create(filmData)
-					.then(callback.bind(null, null), callback);
+			Object.keys(filmData).forEach(function (key) {
+				data[key] = filmData[key];
 			});
-		});
 
+			next();
+		});
 	}
 
 });
