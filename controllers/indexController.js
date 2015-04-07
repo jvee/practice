@@ -1,5 +1,5 @@
 var yate = require('yate');
-var kinopoisk = require('node-kinopoisk-ru');
+var Film = require('../models/Film');
 
 module.exports = function (req, res) {
 	var data = {data: {page: 'index'}};
@@ -13,7 +13,7 @@ module.exports = function (req, res) {
 		return res.send(renderResult);
 	}
 
-	kinopoisk.getById(id, null, function (error, result) {
+	Film.getById(id, function (error, result) {
 		if (error) {
 			renderResult = yate.run(template, null, data);
 			return res.send(renderResult);
