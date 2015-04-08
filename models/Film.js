@@ -1,7 +1,6 @@
-var Waterline = require('waterline');
 var kinopoisk = require('node-kinopoisk-ru');
 
-var Film = Waterline.Collection.extend({
+module.exports = {
 
 	identity: 'film',
 
@@ -35,6 +34,4 @@ var Film = Waterline.Collection.extend({
 		});
 	}
 
-});
-
-module.exports = Film;
+};
