@@ -1,27 +1,23 @@
-var yate = require('yate');
 var Film = require('../orm/').collections.film;
 
 module.exports = function (req, res) {
-	var data = {data: {page: 'index'}};
+	var data = {page: 'index'};
 	var template = './pages/index.yate';
 	var renderResult;
 	
 	var id = req.query.id;
 
 	if (!id) {
-		renderResult = yate.run(template, null, data);
-		return res.send(renderResult);
+		return res.render('index.yate', data);
 	}
 
 	Film.findOrCreate({id: id}, {id:id}, function (error, result) {
 		if (error) {
-			renderResult = yate.run(template, null, data);
-			return res.send(renderResult);
+			return res.render('index.yate', data);
 		}
 
-		data.data.film = result;
+		data.film = result;
 
-		renderResult = yate.run(template, null, data);
-		res.send(renderResult);
+		res.render('index.yate', data);
 	});
 };
