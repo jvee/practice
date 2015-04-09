@@ -1,6 +1,6 @@
 var Film = require('../orm/').collections.film;
 
-module.exports = function (req, res) {
+module.exports.get = function (req, res) {
 	var data = {page: 'index'};
 	var id = req.query.id;
 

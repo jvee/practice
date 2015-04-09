@@ -32,4 +32,4 @@ orm.init(function (err, orm) {
   
 });
 
-app.get('/', require('./controllers/indexController'));
+app.get('/', require('./controllers/indexController').get);
