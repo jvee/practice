@@ -33,3 +33,6 @@ orm.init(function (err, orm) {
 });
 
 app.get('/', require('./controllers/indexController').get);
+
+app.get('/film', require('./controllers/filmController').list);
+app.get('/film/:film_id', require('./controllers/filmController').get);
