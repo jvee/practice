@@ -1,0 +1,20 @@
+match .film film {
+	<div class="film">
+		@style = ( 
+			"display: inline-block;"
+			"vertical-align: top;"
+			"margin: 10px;"
+			"height: 400px;"
+			"width: 210px;"
+			)
+		<h3 class="film__title">
+			.title
+		</h3>
+		<div class='film__poster'>
+			<img src="{.poster}" height="300"/>
+		</div>
+		<span class="film__rating">
+			.rating
+		</span>
+	</div>
+}
