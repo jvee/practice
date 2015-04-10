@@ -34,10 +34,4 @@ orm.init(function (err, orm) {
 
 app.get('/', require('./controllers/indexController').get);
 
-var filmController = require('./controllers/filmController');
-
-app.use('/film', filmController.before);
-
-app.get('/film', filmController.list);
-app.get('/film/:film_id', filmController.get);
-app.post('/film/:film_id/delete', filmController.delete);
+app.use('/film', require('./controllers/filmController'));
