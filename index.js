@@ -36,3 +36,4 @@ app.get('/', require('./controllers/indexController').get);
 
 app.get('/film', require('./controllers/filmController').list);
 app.get('/film/:film_id', require('./controllers/filmController').get);
+app.post('/film/:film_id/delete', require('./controllers/filmController').delete);

@@ -22,3 +22,9 @@ module.exports.get = function (req, res) {
 	});
 };
 
+module.exports.delete = function (req, res) {
+	Film.destroy(req.params.film_id, function (err) {
+		res.redirect('/film');
+	});
+};
+
