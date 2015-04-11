@@ -16,10 +16,9 @@ match .film film {
 		<span class="film__rating">
 			.rating
 		</span>
-		<form action="/film/{.id}/delete" method="post">
-			<button type="submit">
-				'&times;'
-			</button>
+		<form>
+			<button type="submit" formaction="/film/{.id}/delete" formmethod="post">&times;</button>
+			<button type="submit" formaction="/film/{.id}/edit" formmethod="get">Edit</button>
 		</form>
 	</div>
 }

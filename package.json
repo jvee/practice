@@ -12,7 +12,8 @@
   "dependencies": {
     "express": "^4.12.3",
     "waterline": "^0.10.20",
-    "sails-disk": "^0.10.7"
+    "sails-disk": "^0.10.7",
+    "body-parser": "^1.12.2"
   },
   "devDependencies": {
     "yate": "0.0.76",
