@@ -8,6 +8,7 @@ controller.set('views', __dirname + '/../pages');
 controller.use(bodyParser.urlencoded({ extended: true }));
 
 controller.use(dataSetup);
+controller.param('film_id', getItem);
 
 /**
  * Controller routs
@@ -15,8 +16,8 @@ controller.use(dataSetup);
 
 controller
 	.get('/', getList, render('index'))
-	.get('/:film_id', getItem, render('index'))
-	.get('/:film_id/edit', getItem, render('film-edit'))
+	.get('/:film_id', render('index'))
+	.get('/:film_id/edit', render('film-edit'))
 	.post('/:film_id/delete', deleteItem, redirect('/film'))
 	.post('/:film_id', updateItem, redirect('/film'));
 
@@ -26,6 +27,7 @@ controller
 
 function dataSetup(req, res, next) {
 	res.locals.page = 'Film';
+	req.state = {};
 	next();
 }
 
@@ -40,37 +42,34 @@ function getList(req, res, next) {
 	});
 }
 
-function getItem(req, res, next) {
-	var id = req.params.film_id;
-
+function getItem(req, res, next, id) {
 	Film.findOne(id, function (err, film) {
 		if (err) {
-			return;
+			return next(err);
 		}
 
-		res.locals.film = film;
+		if (!film) {
+			return next('Film ' + id + ' not found');
+		}
+
+		req.state.film = res.locals.film = film;
 		next();
 	});
 }
 
 function deleteItem(req, res, next) {
-	Film.destroy(req.params.film_id, function (err) {
-		if (err) {
-			return;
-		}
-
-		next();
-	});
+	req.state.film.destroy(next);
 }
 
 function updateItem(req, res, next) {
-	Film.update(req.body.film.id, req.body.film, function (err) {
-		if (err) {
-			return;
-		}
+	var formData = req.body.film;
+	var film = req.state.film;
 
-		next();
+	Object.keys(formData).forEach(function (key, index) {
+		film[key] = formData[key];
 	});
+
+	film.save(next);
 }
 
 /**
