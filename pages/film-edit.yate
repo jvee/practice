@@ -1,18 +1,7 @@
 include "./common.yate"
+include "../blocks/film-form/film-form.yate"
 
 
 match / body {
-	<form method="post" action="/film/{.film.id}">
-
-		<h3>{.film.title}</h3>
-
-		<input type="hidden" name="film[id]" value="{.film.id}" />
-		<input type="text" name="film[title]" value="{.film.title}" />
-		<input type="text" name="film[rating]" value="{.film.rating}" />
-		<input type="text" name="film[poster]" value="{.film.poster}" />
-
-
-		<button type="submit" for="film">Сохранить</button>
-
-	</form>	
+	apply . film-form
 }
