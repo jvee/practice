@@ -19,7 +19,8 @@ controller
 	.get('/:film_id', render('index'))
 	.get('/:film_id/edit', render('film-edit'))
 	.post('/:film_id/delete', deleteItem, redirect('/films'))
-	.post('/:film_id', updateItem, redirect('/films'));
+	.post('/:film_id', updateItem, redirect('/films'))
+	.post('/', createItem, redirect('/films'));
 
 /**
  * Middleware methods
@@ -59,6 +60,22 @@ function updateItem(req, res, next) {
 	});
 
 	film.save(next);
+}
+
+function createItem(req, res, next) {
+	var id = req.body.film_id;
+
+	Film.findOne(id, function (err, film) {
+		if (err) {
+			return next(err);
+		}
+
+		if (film) {
+			return next('Film ' + id + ' already exists');
+		}
+
+		Film.create({id:id}, next);
+	});
 }
 
 /**
