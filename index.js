@@ -35,3 +35,4 @@ orm.init(function (err, orm) {
 app.get('/', require('./controllers/indexController').get);
 
 app.use('/film', require('./controllers/filmController'));
+app.use('/films', require('./controllers/filmsController'));

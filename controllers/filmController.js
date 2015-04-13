@@ -15,11 +15,11 @@ controller.param('film_id', getItem);
  */
 
 controller
-	.get('/', getList, render('index'))
+	.get('/', redirect('/films'))
 	.get('/:film_id', render('index'))
 	.get('/:film_id/edit', render('film-edit'))
-	.post('/:film_id/delete', deleteItem, redirect('/film'))
-	.post('/:film_id', updateItem, redirect('/film'));
+	.post('/:film_id/delete', deleteItem, redirect('/films'))
+	.post('/:film_id', updateItem, redirect('/films'));
 
 /**
  * Middleware methods
@@ -29,17 +29,6 @@ function dataSetup(req, res, next) {
 	res.locals.page = 'Film';
 	req.state = {};
 	next();
-}
-
-function getList(req, res, next) {
-	Film.find(function (err, films) {
-		if (err) {
-			return;
-		}
-
-		res.locals.film = films;
-		next();
-	});
 }
 
 function getItem(req, res, next, id) {
