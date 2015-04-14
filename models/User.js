@@ -11,8 +11,11 @@ module.exports = {
 	migrate: 'alter',
 
 	attributes: {
-		login: 'string',
-		password: 'float'
+		login: {
+			type: 'string',
+			unique: 'true'
+		},
+		password: 'string'
 	}
 
 };
