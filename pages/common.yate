@@ -1,5 +1,7 @@
 module 'main'
 
+include '../blocks/auth/auth.yate'
+
 match / {
 	html('<!DOCTYPE html>')
 	<html>
@@ -19,6 +21,8 @@ match / {
 match / header {
 	<header class="header">
 		<h1 class="header__title">{.page}</h1>
+
+		apply . auth
 	</header>
 
 	<hr />

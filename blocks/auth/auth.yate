@@ -1,0 +1,13 @@
+match .* auth {
+	// TODO check user.state
+	<div class="auth">
+		@style = (
+			'float: right;'
+			'margin-top: -70px;'
+		)
+		<a href="/auth/login">Вход</a><br />
+		<a href="/auth/signup">Регистрация</a><br />
+		<span>user.login</span><br />
+		<a href="/auth/logout">Выход</a>
+	</div>
+}
