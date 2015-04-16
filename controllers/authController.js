@@ -64,3 +64,5 @@ controller.post('/signup', function (req, res) {
 	// 	});
 	// });
 });
+
+module.exports = controller;

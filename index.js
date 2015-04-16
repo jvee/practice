@@ -36,3 +36,5 @@ app.get('/', require('./controllers/indexController').get);
 
 app.use('/film', require('./controllers/filmController'));
 app.use('/films', require('./controllers/filmsController'));
+
+app.use('/auth', require('./controllers/authController'));
