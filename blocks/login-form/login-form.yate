@@ -1,0 +1,21 @@
+match .* login-form {
+	<div class="login-form">
+		<form method="post" action="/auth/login" >
+			<div class="login-form__errors-list">
+				// TODO: errors templating
+			</div>
+			<div class="login-form__row">
+				// TODO: remove &nbsp;
+				<label class="login-form__label">Логин: &nbsp;&nbsp;&nbsp;</label>
+				<input class="login-form__input" type="text" value="" />
+			</div>
+			<div class="login-form__row">
+				<label class="login-form__label">Пароль: &nbsp;</label>
+				<input class="login-form__input" type="password" value="" />
+			</div>
+			<div class="login-form__row">
+				<button type="submit">Войти</button>
+			</div>
+		</form>
+	</div>
+}
