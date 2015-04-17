@@ -48,6 +48,11 @@ orm.init(function (err, orm) {
   
 });
 
+app.use(function (req, res, next) {
+  res.locals.user = req.session.user;
+  next();
+});
+
 app.get('/', require('./controllers/indexController').get);
 
 app.use('/film', require('./controllers/filmController'));
