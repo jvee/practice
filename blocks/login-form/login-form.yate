@@ -7,11 +7,11 @@ match .* login-form {
 			<div class="login-form__row">
 				// TODO: remove &nbsp;
 				<label class="login-form__label">Логин: &nbsp;&nbsp;&nbsp;</label>
-				<input class="login-form__input" type="text" value="" />
+				<input class="login-form__input" name="login" type="text" value="admin" />
 			</div>
 			<div class="login-form__row">
 				<label class="login-form__label">Пароль: &nbsp;</label>
-				<input class="login-form__input" type="password" value="" />
+				<input class="login-form__input" name="password" type="password" value="" />
 			</div>
 			<div class="login-form__row">
 				<button type="submit">Войти</button>
