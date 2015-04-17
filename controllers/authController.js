@@ -7,8 +7,10 @@ controller.set('views', __dirname + '/../pages');
 
 controller.get('/login', function (req, res) {
 	// if req.session.user redirect
-	
-	// res.render('login');
+	// TODO: вынести в dataSetup
+	res.locals.page = 'Login';
+
+	res.render('login');
 });
 
 controller.post('/login', function (req, res, next) {
@@ -35,6 +37,10 @@ controller.post('/login', function (req, res, next) {
 	// 	});
 	// });
 
+	// TODO: вынести в dataSetup
+	res.locals.page = 'Login';
+
+	res.render('login');
 });
 
 controller.post('/logout', function (req, res) {
