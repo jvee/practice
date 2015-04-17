@@ -36,6 +36,14 @@ orm.init(function (err, orm) {
 
     console.log('Example app listening at http://%s:%s', host, port);
 
+    // TODO: remove or setup super user over config
+    orm.collections.user.new({
+      login: 'admin',
+      password: ''
+    }, function () {
+      console.log('[SuperUser]: inited');
+    });
+
   });
   
 });
