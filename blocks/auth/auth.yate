@@ -5,9 +5,14 @@ match .* auth {
 			'float: right;'
 			'margin-top: -70px;'
 		)
-		<a href="/auth/login">Вход</a><br />
-		<a href="/auth/signup">Регистрация</a><br />
-		<span>user.login</span><br />
-		<a href="/auth/logout">Выход</a>
+
+		if (!.user.id) {
+			<a href="/auth/login">Вход</a><br />
+			<a href="/auth/signup">Регистрация</a><br /> 	
+		} else {
+			<span>{ .user.login }</span><br />
+			<a href="/auth/logout">Выход</a>
+		}
+		
 	</div>
 }
