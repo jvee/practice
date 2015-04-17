@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');
 var orm = require('./orm/');
 
 var app = express();
@@ -17,6 +18,13 @@ app.engine('yate', function (filePath, options, callback) {
 
 app.set('views', './pages');
 app.set('view engine', 'yate');
+
+app.use(session({
+  // TODO: move to config (all session options)
+  secret: 'mistery',
+  resave: true,
+  saveUninitialized: true
+}));
 
 orm.init(function (err, orm) {
   if (err) throw err;
