@@ -37,10 +37,12 @@ controller.post('/login', function (req, res) {
 	});
 });
 
-controller.post('/logout', function (req, res) {
-	// req.session.destroy(function () {
-	// 	res.redirect('/');
-	// });
+// TODO: оставить только POST для logout
+controller.all('/logout', function (req, res) {
+	req.session.destroy(function (err) {
+		// TODO: chek err
+		res.redirect('/');
+	});
 });
 
 controller.get('/signup', function (req, res) {
