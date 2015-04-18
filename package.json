@@ -14,7 +14,8 @@
     "waterline": "^0.10.20",
     "sails-disk": "^0.10.7",
     "body-parser": "^1.12.2",
-    "express-session": "^1.11.1"
+    "express-session": "^1.11.1",
+    "session-file-store": "0.0.3"
   },
   "devDependencies": {
     "yate": "0.0.76",

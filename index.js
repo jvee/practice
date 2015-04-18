@@ -1,5 +1,6 @@
 var express = require('express');
 var session = require('express-session');
+var SessionFileStore = require('session-file-store')(session);
 var orm = require('./orm/');
 
 var app = express();
@@ -23,7 +24,8 @@ app.use(session({
   // TODO: move to config (all session options)
   secret: 'mistery',
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: new SessionFileStore({path: './db/sessions'})
 }));
 
 orm.init(function (err, orm) {
