@@ -25,7 +25,10 @@ app.use(session({
   secret: 'mistery',
   resave: true,
   saveUninitialized: true,
-  store: new SessionFileStore({path: './db/sessions'})
+  store: new SessionFileStore({
+    path: './db/sessions',
+    ttl: 60 * 60 * 24
+  })
 }));
 
 orm.init(function (err, orm) {
