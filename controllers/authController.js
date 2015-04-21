@@ -11,6 +11,7 @@ controller.get('/login', function (req, res) {
 	// if req.session.user redirect
 	// TODO: вынести в dataSetup
 	res.locals.page = 'Login';
+	res.locals.form = {};
 
 	res.render('login');
 });
@@ -21,11 +22,20 @@ controller.post('/login', function (req, res) {
 
 	var formData = req.body;
 
+	res.locals.form = {
+		login: formData.login,
+		password: formData.password
+	};
+
 	User.check(formData, function (err, user) {
 		if (err) {
-			// TODO: crate validation
-			console.log(err);
-			res.render('login');
+			// TODO: move to constans texts
+			if (typeof err === 'string') {
+				res.locals.form.message = 'Wrong Login or Password';
+			} else {
+				res.locals.form.message = 'Somthing goes wrong';
+			}
+			return res.render('login');
 		}
 
 		req.session.regenerate(function () {

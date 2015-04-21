@@ -1,17 +1,20 @@
-match .* login-form {
+match .form login-form {
 	<div class="login-form">
 		<form method="post" action="/auth/login" >
-			<div class="login-form__errors-list">
-				// TODO: errors templating
-			</div>
+			if (exists(.message)) {
+				<div class="login-form__errors-list">
+					// TODO: errors templating
+					.message
+				</div>
+			}
 			<div class="login-form__row">
 				// TODO: remove &nbsp;
 				<label class="login-form__label">Логин: &nbsp;&nbsp;&nbsp;</label>
-				<input class="login-form__input" name="login" type="text" value="" />
+				<input class="login-form__input" name="login" type="text" value="{.login}" />
 			</div>
 			<div class="login-form__row">
 				<label class="login-form__label">Пароль: &nbsp;</label>
-				<input class="login-form__input" name="password" type="password" value="" />
+				<input class="login-form__input" name="password" type="password" value="{.password}" />
 			</div>
 			<div class="login-form__row">
 				<button type="submit">Войти</button>
