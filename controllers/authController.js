@@ -16,7 +16,7 @@ controller.get('/login', function (req, res) {
 	res.render('login');
 });
 
-controller.post('/login', function (req, res) {
+controller.post('/login', function (req, res, next) {
 	// TODO: вынести в dataSetup
 	res.locals.page = 'Login';
 
@@ -33,7 +33,7 @@ controller.post('/login', function (req, res) {
 			if (typeof err === 'string') {
 				res.locals.form.message = 'Wrong Login or Password';
 			} else {
-				res.locals.form.message = 'Somthing goes wrong';
+				next(err);
 			}
 			return res.render('login');
 		}
@@ -48,9 +48,12 @@ controller.post('/login', function (req, res) {
 });
 
 // TODO: оставить только POST для logout
-controller.all('/logout', function (req, res) {
+controller.all('/logout', function (req, res, next) {
 	req.session.destroy(function (err) {
-		// TODO: chek err
+		if (err) {
+			next(err);
+		}
+
 		res.redirect('/');
 	});
 });
