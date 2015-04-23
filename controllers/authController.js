@@ -8,7 +8,10 @@ controller.set('views', __dirname + '/../pages');
 controller.use(bodyParser.urlencoded({ extended: true }));
 
 controller.get('/login', function (req, res) {
-	// if req.session.user redirect
+	if (req.session.user) {
+		return res.redirect('/');
+	}
+
 	// TODO: вынести в dataSetup
 	res.locals.page = 'Login';
 	res.locals.form = {};
