@@ -11,7 +11,9 @@ match .* auth {
 			<a href="/auth/signup">Регистрация</a><br /> 	
 		} else {
 			<span>{ .user.login }</span><br />
-			<a href="/auth/logout">Выход</a>
+			<form action="/auth/logout" method="post">
+				<button type="submit">Выход</button>
+			</form>
 		}
 		
 	</div>

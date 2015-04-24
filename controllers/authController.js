@@ -15,8 +15,7 @@ controller
 	.all('/login', loginDataSetup)
 	.get('/login', loginRestrict, render('login'))
 	.post('/login', loginCheck, redirect('/'))
-	// TODO: оставить только POST для logout
-	.all('/logout', logout, redirect('/'));
+	.post('/logout', logout, redirect('/'));
 
 
 
