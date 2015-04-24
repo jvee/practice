@@ -10,7 +10,7 @@ match .form login-form {
 			<div class="login-form__row">
 				// TODO: remove &nbsp;
 				<label class="login-form__label">Логин: &nbsp;&nbsp;&nbsp;</label>
-				<input class="login-form__input" name="login" type="text" value="{.login}" />
+				<input class="login-form__input" name="login" type="text" value="{.login}" autofocus="autofocus" />
 			</div>
 			<div class="login-form__row">
 				<label class="login-form__label">Пароль: &nbsp;</label>
