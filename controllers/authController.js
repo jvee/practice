@@ -15,13 +15,10 @@ controller
 	.all('/login', loginDataSetup)
 	.get('/login', loginRestrict, render('login'))
 	.post('/login', loginCheck, redirect('/'))
-	.post('/logout', logout, redirect('/'));
+	.post('/logout', logout, redirect('/'))
+	.all('/signup', signupDataSetup)
+	.get('/signup', render('signup'));
 
-
-
-controller.get('/signup', function (req, res) {
-	// res.render('signup');
-});
 
 controller.post('/signup', function (req, res) {
 	// var formData = req.body.user;
@@ -92,6 +89,12 @@ function logout(req, res, next) {
 
 		next();
 	});
+}
+
+function signupDataSetup(req, res, next) {
+	res.locals.page = 'Signup';
+	res.locals.form = {};
+	next();
 }
 
 /**
