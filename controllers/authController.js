@@ -17,26 +17,8 @@ controller
 	.post('/login', loginCheck, redirect('/'))
 	.post('/logout', logout, redirect('/'))
 	.all('/signup', signupDataSetup)
-	.get('/signup', render('signup'));
-
-
-controller.post('/signup', function (req, res) {
-	// var formData = req.body.user;
-
-	// User.findOne({ login: formData.login }, function (err, user) {
-	// 	if (err) {
-	// 		return next(err);
-	// 	}
-
-	// 	if (user) {
-	// 		return next('Login already exists');
-	// 	}
-
-	// 	User.create(formData, function (err, user) {
-	// 		res.redirect('/');
-	// 	});
-	// });
-});
+	.get('/signup', loginRestrict, render('signup'))
+	.post('/signup', loginRestrict, signup, redirect('/'));
 
 /**
  * Middleware methods
@@ -95,6 +77,27 @@ function signupDataSetup(req, res, next) {
 	res.locals.page = 'Signup';
 	res.locals.form = {};
 	next();
+}
+
+function signup(req, res, next) {
+	var formData = req.body;
+
+	res.locals.form.login = formData.login;
+	res.locals.form.password = formData.password;
+
+	User.create(formData, function (err, user) {
+		if (err) {
+			// TODO: normalize error list
+			res.locals.form.message = err.invalidAttributes;
+			return res.render('signup');
+		}
+
+		req.session.regenerate(function () {
+			console.log('[Auth]: logined user %s', user.login);
+			req.session.user = user;
+			next();
+		});
+	});
 }
 
 /**
