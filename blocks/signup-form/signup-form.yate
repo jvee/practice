@@ -1,0 +1,24 @@
+match .form signup-form {
+	<div class="signup-form">
+		<form method="post" action="/auth/signup" >
+			if (exists(.message)) {
+				<div class="signup-form__errors-list">
+					// TODO: errors templating
+					.message.*.message
+				</div>
+			}
+			<div class="signup-form__row">
+				// TODO: remove &nbsp;
+				<label class="signup-form__label">Логин: &nbsp;&nbsp;&nbsp;</label>
+				<input class="signup-form__input" name="login" type="text" value="{.login}" autofocus="autofocus" />
+			</div>
+			<div class="signup-form__row">
+				<label class="signup-form__label">Пароль: &nbsp;</label>
+				<input class="signup-form__input" name="password" type="password" value="{.password}" />
+			</div>
+			<div class="signup-form__row">
+				<button type="submit">Зарегестироваться</button>
+			</div>
+		</form>
+	</div>
+}

@@ -1,0 +1,6 @@
+include './common.yate'
+include '../blocks/signup-form/signup-form.yate'
+
+match / body {
+	apply .form signup-form
+}
