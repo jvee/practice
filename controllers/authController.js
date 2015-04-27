@@ -14,19 +14,23 @@ controller.use(bodyParser.urlencoded({ extended: true }));
 controller
 	.all('/login', loginDataSetup)
 	.get('/login', loginRestrict, render('login'))
-	.post('/login', loginCheck, redirect('/'))
-	.post('/logout', logout, redirect('/'))
+	.post('/login', loginCheck)
+	.post('/logout', logout)
 	.all('/signup', signupDataSetup)
 	.get('/signup', loginRestrict, render('signup'))
-	.post('/signup', loginRestrict, signup, redirect('/'));
+	.post('/signup', loginRestrict, signup);
 
 /**
  * Middleware methods
  */
 
 function loginDataSetup(req, res, next) {
+	// TODO: mb move "retpath" to middleware & keep it in session
+	var retpath = req.body.retpath ? req.body.retpath : req.headers.referer;
+
 	res.locals.page = 'Login';
 	res.locals.form = {};
+	res.locals.form.retpath = retpath;
 	next();
 }
 
@@ -58,7 +62,7 @@ function loginCheck(req, res, next) {
 		req.session.regenerate(function () {
 			console.log('[Auth]: logined user %s', user.login);
 			req.session.user = user;
-			next();
+			res.redirect(req.body.retpath || '/');
 		});
 	});
 }
@@ -69,13 +73,18 @@ function logout(req, res, next) {
 			next(err);
 		}
 
-		next();
+		// TODO: '/' to constants
+		res.redirect(req.headers.referer || '/');
 	});
 }
 
 function signupDataSetup(req, res, next) {
+	var retpath = req.body.retpath ? req.body.retpath : req.headers.referer;
+
 	res.locals.page = 'Signup';
 	res.locals.form = {};
+	res.locals.form.retpath = retpath;
+
 	next();
 }
 
@@ -95,7 +104,7 @@ function signup(req, res, next) {
 		req.session.regenerate(function () {
 			console.log('[Auth]: logined user %s', user.login);
 			req.session.user = user;
-			next();
+			res.redirect(req.body.retpath || '/');
 		});
 	});
 }
