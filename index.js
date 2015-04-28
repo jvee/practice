@@ -2,6 +2,8 @@ var express = require('express');
 var session = require('express-session');
 var SessionFileStore = require('session-file-store')(session);
 var orm = require('./orm/');
+var bodyParser = require('body-parser');
+var retpath = require('./modules/retpath');
 
 var app = express();
 
@@ -30,6 +32,9 @@ app.use(session({
     ttl: 60 * 60 * 24
   })
 }));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(retpath);
 
 orm.init(function (err, orm) {
   if (err) throw err;

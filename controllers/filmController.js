@@ -1,11 +1,9 @@
 var express = require('express');
-var bodyParser = require('body-parser');
 var controller = express();
 
 var Film = require('../orm/').collections.film;
 
 controller.set('views', __dirname + '/../pages');
-controller.use(bodyParser.urlencoded({ extended: true }));
 
 controller.use(dataSetup);
 controller.param('film_id', getItem);
@@ -28,7 +26,7 @@ controller
 
 function dataSetup(req, res, next) {
 	res.locals.page = 'Film';
-	req.state = {};
+
 	next();
 }
 

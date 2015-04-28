@@ -1,11 +1,9 @@
 var express = require('express');
-var bodyParser = require('body-parser');
 
 var controller = express();
 var User = require('../orm/').collections.user;
 
 controller.set('views', __dirname + '/../pages');
-controller.use(bodyParser.urlencoded({ extended: true }));
 
 /**
  * Controller routs
@@ -25,12 +23,11 @@ controller
  */
 
 function loginDataSetup(req, res, next) {
-	// TODO: mb move "retpath" to middleware & keep it in session
-	var retpath = req.body.retpath ? req.body.retpath : req.headers.referer;
-
+	// TODO: in the controller class support pagename.json file
+	// to include static data or create layout
 	res.locals.page = 'Login';
 	res.locals.form = {};
-	res.locals.form.retpath = retpath;
+
 	next();
 }
 
@@ -45,6 +42,8 @@ function loginRestrict(req, res, next) {
 function loginCheck(req, res, next) {
 	var formData = req.body;
 
+	// TODO: move to helper function setLocals({}) and extend req.locals.there
+	// TODO: create controller class & create method this.setLocals({});
 	res.locals.form.login = formData.login;
 	res.locals.form.password = formData.password;
 
@@ -62,7 +61,7 @@ function loginCheck(req, res, next) {
 		req.session.regenerate(function () {
 			console.log('[Auth]: logined user %s', user.login);
 			req.session.user = user;
-			res.redirect(req.body.retpath || '/');
+			res.redirect(req.state.retpath || '/');
 		});
 	});
 }
@@ -79,11 +78,8 @@ function logout(req, res, next) {
 }
 
 function signupDataSetup(req, res, next) {
-	var retpath = req.body.retpath ? req.body.retpath : req.headers.referer;
-
 	res.locals.page = 'Signup';
 	res.locals.form = {};
-	res.locals.form.retpath = retpath;
 
 	next();
 }
@@ -104,7 +100,7 @@ function signup(req, res, next) {
 		req.session.regenerate(function () {
 			console.log('[Auth]: logined user %s', user.login);
 			req.session.user = user;
-			res.redirect(req.body.retpath || '/');
+			res.redirect(req.state.retpath || '/');
 		});
 	});
 }
