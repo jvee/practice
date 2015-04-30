@@ -7,9 +7,6 @@ module.exports = function (req, res, next) {
 	// TODO: mb move to module "state"
 	req.state = {};
 
-	// TODO: mb move to module "config"
-	res.locals.config = {};
-
-	req.state.retpath = res.locals.config.retpath = retpath;
+	req.state.retpath = res.locals.retpath = retpath;
 	next();
 };

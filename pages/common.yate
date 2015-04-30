@@ -3,8 +3,7 @@ module 'main'
 include '../blocks/auth/auth.yate'
 
 // globals
-// TODO: move to helpers function config() || state()
-config = /.config
+retpath = /.retpath
 
 match / {
 	html('<!DOCTYPE html>')

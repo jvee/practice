@@ -1,7 +1,7 @@
 match .form signup-form {
 	<div class="signup-form">
 		<form method="post" action="/auth/signup" >
-			<input type="hidden" name="retpath" value="{config.retpath}" />
+			<input type="hidden" name="retpath" value="{retpath}" />
 			if (exists(.message)) {
 				<div class="signup-form__errors-list">
 					// TODO: errors templating
