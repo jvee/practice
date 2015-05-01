@@ -1,5 +1,3 @@
-var kinopoisk = require('node-kinopoisk-ru');
-
 module.exports = {
 
 	identity: 'user',

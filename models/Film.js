@@ -1,4 +1,4 @@
-var kinopoisk = require('node-kinopoisk-ru');
+var kinopoisk = require('kinopoisk-ru');
 
 module.exports = {
 
