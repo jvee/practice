@@ -30,6 +30,10 @@ module.exports = {
 				data[key] = filmData[key];
 			});
 
+			// setting up additional properties
+			// TODO: move to kinopoisk.api.js
+			data.poster = '//www.kinopoisk.ru/images/film_big/' + data.id + '.jpg';
+
 			next();
 		});
 	}
