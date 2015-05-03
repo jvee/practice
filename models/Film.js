@@ -13,7 +13,8 @@ module.exports = {
 	attributes: {
 		id: {
 			type: 'integer',
-			unique: 'true'
+			unique: 'true',
+			primaryKey: true
 		},
 		title: 'string',
 		rating: 'float',

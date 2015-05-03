@@ -13,7 +13,11 @@ module.exports = {
 			type: 'string',
 			unique: 'true'
 		},
-		password: 'string'
+		password: 'string',
+		watchlist: {
+			collection: 'watchlist',
+			via: 'user'
+		}
 	},
 
 	new: function (userData, callback) {
