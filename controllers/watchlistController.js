@@ -23,10 +23,6 @@ controller
  */
 
 function index(req, res, next) {
-
-	// TODO xhr or application/json check
-	// otherwise next() to render
-
 	var query = {
 		user: req.session.user.id
 	};
@@ -35,8 +31,6 @@ function index(req, res, next) {
 		if (err) {
 			return next(err);
 		}
-
-		res.locals.watchlist = watchlist;
 
 		var filmIds = watchlist.map(function (item, index) {
 			return item.film;
@@ -47,8 +41,11 @@ function index(req, res, next) {
 				return next(err);
 			}
 
+			res.locals.watchlist = watchlist;
 			res.locals.film = films;
 
+			// TODO xhr or application/json check
+			// otherwise next() to render
 			res.json(res.locals);
 		});
 	});
