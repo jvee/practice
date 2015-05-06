@@ -2,11 +2,28 @@ include './common.yate'
 include '../blocks/film/film.yate'
 
 match / body {
-	apply .watchlist watchlist
+	apply . watchlist
 }
 
-match .watchlist watchlist {
-	filmId = .film
+match / watchlist {
+	if (.watchlist[.watched]) {
+		<h3>Просмотренные</h3>
+		apply .watchlist[.watched] watchlist-item
+	}
 
-	apply /.film[.id == filmId] film
+	if (.watchlist[!.watched]) {
+		<h3>К просмотру</h3>
+		apply .watchlist[!.watched] watchlist-item
+	}
+
+	if (count(.watchlist) == 0) {
+		<p>Список пуст</p>
+	}
+}
+
+match .watchlist watchlist-item {
+	films = /.film
+	targetFilmId = .film
+
+	apply films[.id == targetFilmId] film
 }
