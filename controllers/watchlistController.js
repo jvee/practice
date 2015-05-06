@@ -29,7 +29,10 @@ function before(req, res, next) {
 
 function index(req, res, next) {
 	var query = {
-		user: req.session.user.id
+		where: {
+			user: req.session.user.id
+		},
+		sort: 'updatedAt DESC'
 	};
 
 	Watchlist.find(query, function (err, watchlist) {
