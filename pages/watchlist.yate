@@ -1,0 +1,12 @@
+include './common.yate'
+include '../blocks/film/film.yate'
+
+match / body {
+	apply .watchlist watchlist
+}
+
+match .watchlist watchlist {
+	filmId = .film
+
+	apply /.film[.id == filmId] film
+}

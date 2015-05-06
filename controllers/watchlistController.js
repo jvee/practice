@@ -14,13 +14,18 @@ controller.set('views', __dirname + '/../pages');
 
 controller
 	// .all()
-	.get('/', index)
+	.get('/', before, index, render('watchlist'))
 	// TODO: loginRestrict
-	.post('/', create);
+	.post('/', before, create);
 
 /**
  * Middleware methods
  */
+
+function before(req, res, next) {
+	res.locals.page = 'Watchlist';
+	next();
+}
 
 function index(req, res, next) {
 	var query = {
@@ -46,7 +51,9 @@ function index(req, res, next) {
 
 			// TODO xhr or application/json check
 			// otherwise next() to render
-			res.json(res.locals);
+			// res.json(res.locals);
+
+			next();
 		});
 	});
 }
@@ -71,6 +78,16 @@ function create(req, res, next) {
 		// TODO: this.retpath() for feature controller
 		res.redirect(req.state.retpath || '/');
 	});
+}
+
+/**
+ * Middleware helpers
+ */
+
+function render(template) {
+	return function (req, res) {
+		res.render(template);
+	};
 }
 
 module.exports = controller;
