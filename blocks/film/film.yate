@@ -20,9 +20,28 @@ match .film film {
 			<button type="submit" formaction="/film/{.id}/delete" formmethod="post">&times;</button>
 			<button type="submit" formaction="/film/{.id}/edit" formmethod="get">Edit</button>
 		</form>
-		<form action="/watchlist/" method="post"> 
-			<input type="hidden" name="filmId" value="{.id}" />
-			<button type="submit">+</button>
-		</form>
+
+		apply . film-watchlist-controls
+
 	</div>
+}
+
+match .film film-watchlist-controls {
+	filmId = .id
+	watchlistItem = /.watchlist[.film == filmId]
+
+	<form action="/watchlist/" method="post">
+		<input type="hidden" name="filmId" value="{filmId}" />
+
+		<button>
+			@type = 'submit'
+			if (watchlistItem) {
+				@formaction = '/watchlist/{watchlistItem.id}/delete'
+				'-'
+			} else {
+				'+'
+			}
+		</button>
+
+	</form>
 }
