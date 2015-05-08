@@ -41,8 +41,12 @@ module.exports = {
 
 	saveItem: function (data, callback) {
 		var Watchlist = this;
+		var query = {
+			film: data.film,
+			user: data.user
+		};
 
-		Watchlist.findOne(data, function (err, watchlistItem) {
+		Watchlist.findOne(query, function (err, watchlistItem) {
 			if (err) {
 				return callback(err);
 			}
@@ -51,8 +55,8 @@ module.exports = {
 				return Watchlist.create(data, callback);
 			}
 
-			Object.keys(watchlistItem).forEach(function (key, index) {
-				watchlistItem[key] = data[key] || watchlistItem[key];
+			Object.keys(data).forEach(function (key, index) {
+				watchlistItem[key] = data[key];
 			});
 
 			watchlistItem.save(callback);

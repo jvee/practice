@@ -43,5 +43,18 @@ match .film film-watchlist-controls {
 			}
 		</button>
 
+		<button>
+			@type = 'submit'
+			@name = 'watched'
+
+			if (watchlistItem && watchlistItem.watched) {
+				@value = '0'
+				'Убрать из просмотренных'
+			} else {
+				@value = '1'
+				'В просмотренные'
+			}
+		</button>
+
 	</form>
 }

@@ -64,8 +64,7 @@ function index(req, res, next) {
 function create(req, res, next) {
 	var user = req.session.user;
 	var filmId = req.body.filmId;
-	// TODO: string check
-	var watched = !!req.body.watched;
+	var watched = !!parseInt(req.body.watched, 10);
 
 	var data = {
 		film: filmId,
