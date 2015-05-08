@@ -2,6 +2,7 @@ var express = require('express');
 
 var controller = express();
 var Film = require('../orm/').collections.film;
+var Watchlist = require('../orm').collections.watchlist;
 
 controller.set('views', __dirname + '/../pages');
 controller.use(dataSetup);
@@ -26,11 +27,33 @@ function dataSetup(req, res, next) {
 function getList(req, res, next) {
 	Film.find(function (err, films) {
 		if (err) {
-			return;
+			return next(err);
 		}
 
-		res.locals.film = films;
-		next();
+		// TODO: middleware loadResource('watchlist')
+		// resources destiontaion ./resources/
+		// put films & options for resource in state ?
+
+		filmIds = films.map(function (film, index) {
+			return film.id;
+		});
+
+		// TODO: check user auth
+		var query = {
+			user: req.session.user.id,
+			film: filmIds
+		};
+
+		Watchlist.find(query, function (err, watchlist) {
+			if (err) {
+				return next(err);
+			}
+
+			res.locals.watchlist = watchlist;
+			res.locals.film = films;
+			next();
+		});
+
 	});
 }
 
