@@ -13,10 +13,10 @@ controller.set('views', __dirname + '/../pages');
  */
 
 controller
-	// .all()
-	.get('/', before, index, render('watchlist'))
+	.use(before)
+	.get('/', index, render('watchlist'))
 	// TODO: loginRestrict
-	.post('/', before, create)
+	.post('/', create)
 	.post('/delete', destroy);
 
 /**
@@ -63,14 +63,10 @@ function index(req, res, next) {
 }
 
 function create(req, res, next) {
-	var user = req.session.user;
-	var filmId = req.body.filmId;
-	var watched = !!parseInt(req.body.watched, 10);
-
 	var data = {
-		film: filmId,
-		user: user.id,
-		watched: watched
+		film: req.body.filmId,
+		user: req.session.user.id,
+		watched: !!parseInt(req.body.watched, 10)
 	};
 
 	Watchlist.saveItem(data, function (err, watchlistItem) {
