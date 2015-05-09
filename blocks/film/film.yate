@@ -36,7 +36,7 @@ match .film film-watchlist-controls {
 		<button>
 			@type = 'submit'
 			if (watchlistItem) {
-				@formaction = '/watchlist/{watchlistItem.id}/delete'
+				@formaction = '/watchlist/delete'
 				'-'
 			} else {
 				'+'

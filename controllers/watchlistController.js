@@ -16,7 +16,8 @@ controller
 	// .all()
 	.get('/', before, index, render('watchlist'))
 	// TODO: loginRestrict
-	.post('/', before, create);
+	.post('/', before, create)
+	.post('/delete', destroy);
 
 /**
  * Middleware methods
@@ -78,6 +79,22 @@ function create(req, res, next) {
 		}
 
 		// TODO: this.retpath() for feature controller
+		res.redirect(req.state.retpath || '/');
+	});
+}
+
+function destroy(req, res, next) {
+	var query = {
+		user: req.session.user.id,
+		film: req.body.filmId
+	};
+
+	Watchlist.removeItem(query, function (err, watchlistItem) {
+		if (err) {
+			return next(err);
+		}
+
+		// TODO: don't forgen about 'back' redirect
 		res.redirect(req.state.retpath || '/');
 	});
 }

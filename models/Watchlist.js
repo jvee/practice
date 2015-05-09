@@ -61,6 +61,18 @@ module.exports = {
 
 			watchlistItem.save(callback);
 		});
+	},
+
+	removeItem: function (data, callback) {
+		var Watchlist = this;
+
+		Watchlist.findOne(data, function (err, watchlistItem) {
+			if (err) {
+				return next(err);
+			}
+
+			watchlistItem.destroy(callback);
+		});
 	}
 
 };
