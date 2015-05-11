@@ -13,7 +13,7 @@ controller.set('views', __dirname + '/../pages');
  */
 
 controller
-	.use(before)
+	.use(loginRestrict, before)
 	.get('/', index, render('watchlist'))
 	// TODO: loginRestrict
 	.post('/', create)
@@ -26,6 +26,18 @@ controller
 function before(req, res, next) {
 	res.locals.page = 'Watchlist';
 	next();
+}
+
+// TODO: move to ./policies
+function loginRestrict(req, res, next) {
+	if (req.session.user) {
+		return next();
+	}
+
+	// TODO: Custom error classes
+	err = new Error('Auth required');
+	err.status = 401;
+	next(err);
 }
 
 function index(req, res, next) {
