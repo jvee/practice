@@ -8,14 +8,7 @@ module.exports = {
 
 	migrate: 'alter',
 
-	autoPK: false,
-
 	attributes: {
-		id: {
-			type: 'integer',
-			unique: true,
-			primaryKey: true
-		},
 		user: {
 			model: 'user',
 			required: true
@@ -31,12 +24,6 @@ module.exports = {
 		// TODO: tags
 		// TODO: grade
 		// TODO: comment
-	},
-
-	// TODO: remove id generation
-	beforeCreate: function (data, next) {
-		data.id = data.id || generateWatchlistId(data.user, data.film);
-		next();
 	},
 
 	saveItem: function (data, callback) {
@@ -76,11 +63,3 @@ module.exports = {
 	}
 
 };
-
-/**
- * Helpers
- */
-
-function generateWatchlistId(userId, filmId) {
-	return userId * 10000000 + filmId;
-}
