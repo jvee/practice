@@ -21,7 +21,9 @@ match .film film {
 			<button type="submit" formaction="/film/{.id}/edit" formmethod="get">Edit</button>
 		</form>
 
-		apply . film-watchlist-controls
+		if (exists(/.user.id)) {
+			apply . film-watchlist-controls
+		}
 
 	</div>
 }

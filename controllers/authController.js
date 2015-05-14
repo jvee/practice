@@ -60,7 +60,7 @@ function loginCheck(req, res, next) {
 
 		req.session.regenerate(function () {
 			console.log('[Auth]: logined user %s', user.login);
-			req.session.user = user;
+			req.session.user = res.locals.user = user;
 			res.redirect(req.state.retpath || '/');
 		});
 	});

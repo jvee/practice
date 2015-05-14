@@ -30,15 +30,20 @@ function getList(req, res, next) {
 			return next(err);
 		}
 
+		res.locals.film = films;
+
+		if (!req.session.user) {
+			return next();
+		}
+
 		// TODO: middleware loadResource('watchlist')
 		// resources destiontaion ./resources/
 		// put films & options for resource in state ?
 
-		filmIds = films.map(function (film, index) {
+		var filmIds = films.map(function (film, index) {
 			return film.id;
 		});
 
-		// TODO: check user auth
 		var query = {
 			user: req.session.user.id,
 			film: filmIds
@@ -50,7 +55,6 @@ function getList(req, res, next) {
 			}
 
 			res.locals.watchlist = watchlist;
-			res.locals.film = films;
 			next();
 		});
 
