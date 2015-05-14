@@ -5,6 +5,11 @@ var filmsQueue;
 var filmsQueueInitialLengh;
 var notFoundRE = /Film with id \d{3,10} not found/;
 
+var options = {
+	timeout: 1000,
+	posterUrlTemplate: 'http://www.kinopoisk.ru/images/film_big/{id}.jpg'
+};
+
 // TODO: films ids via script arguments
 // TODO: timeout via script arguments
 // TODO: film.update instance method
@@ -40,7 +45,7 @@ function update() {
 		if (err) {
 			if (err.message.match(notFoundRE)) {
 				console.warn('[Updating]: Error, %s', err.message);
-				return setTimeout(update, 1000);
+				return setTimeout(update, options.timeout);
 			}
 
 			throw new Error(err);
@@ -50,7 +55,7 @@ function update() {
 			film[key] = filmData[key];
 		});
 
-		film.poster = '//www.kinopoisk.ru/images/film_big/' + film.id + '.jpg';
+		film.poster = options.posterUrlTemplate.replace('{id}', film.id);
 
 		if (!film.rating) {
 			delete film.rating;
@@ -61,7 +66,7 @@ function update() {
 				throw new Error(err);
 			}
 
-			setTimeout(update, 1000);
+			setTimeout(update, options.timeout);
 		});
 	});
 }
