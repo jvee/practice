@@ -1,7 +1,7 @@
 var express = require('express');
 
 var controller = express();
-var User = require('../orm/').collections.user;
+var User = require('../modules/orm').collections.user;
 
 controller.set('views', __dirname + '/../pages');
 

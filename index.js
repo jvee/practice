@@ -1,7 +1,7 @@
 var express = require('express');
 var session = require('express-session');
 var SessionFileStore = require('session-file-store')(session);
-var orm = require('./orm/');
+var orm = require('./modules/orm');
 var bodyParser = require('body-parser');
 var retpath = require('./modules/retpath');
 

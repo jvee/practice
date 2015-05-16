@@ -1,8 +1,8 @@
 var express = require('express');
 
 var controller = express();
-var Film = require('../orm/').collections.film;
-var Watchlist = require('../orm').collections.watchlist;
+var Film = require('../modules/orm').collections.film;
+var Watchlist = require('../modules/orm').collections.watchlist;
 
 controller.set('views', __dirname + '/../pages');
 controller.use(dataSetup);

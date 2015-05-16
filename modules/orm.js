@@ -2,7 +2,7 @@ var path = require('path');
 var fs = require('fs');
 
 var Waterline = require('waterline');
-var ormConfig = require('./config');
+var ormConfig = require('../config/orm');
 
 var orm = new Waterline();
 var MODELS_DIR = '../models/';

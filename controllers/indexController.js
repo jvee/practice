@@ -1,4 +1,4 @@
-var Film = require('../orm/').collections.film;
+var Film = require('../modules/orm').collections.film;
 
 module.exports.get = function (req, res) {
 	var data = {page: 'index'};

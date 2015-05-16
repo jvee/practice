@@ -1,4 +1,4 @@
-var orm = require('../orm/');
+var orm = require('../modules/orm');
 var kinopoisk = require('kinopoisk-ru');
 
 var filmsQueue;

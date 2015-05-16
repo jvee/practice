@@ -2,9 +2,9 @@ var express = require('express');
 
 var controller = express();
 
-var User = require('../orm').collections.user;
-var Film = require('../orm').collections.film;
-var Watchlist = require('../orm').collections.watchlist;
+var User = require('../modules/orm').collections.user;
+var Film = require('../modules/orm').collections.film;
+var Watchlist = require('../modules/orm').collections.watchlist;
 
 controller.set('views', __dirname + '/../pages');
 

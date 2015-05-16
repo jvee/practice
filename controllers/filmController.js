@@ -1,7 +1,7 @@
 var express = require('express');
 var controller = express();
 
-var Film = require('../orm/').collections.film;
+var Film = require('../modules/orm').collections.film;
 
 controller.set('views', __dirname + '/../pages');
 
