@@ -48,7 +48,7 @@ function update() {
 				return setTimeout(update, options.timeout);
 			}
 
-			throw new Error(err);
+			throw err;
 		}
 
 		Object.keys(filmData).forEach(function (key) {
@@ -63,7 +63,7 @@ function update() {
 
 		film.save(function (err, film) {
 			if (err) {
-				throw new Error(err);
+				throw err;
 			}
 
 			setTimeout(update, options.timeout);
