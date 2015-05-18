@@ -16,16 +16,21 @@ match .film film {
 		<span class="film__rating">
 			.rating
 		</span>
-		<form>
-			<button type="submit" formaction="/film/{.id}/delete" formmethod="post">&times;</button>
-			<button type="submit" formaction="/film/{.id}/edit" formmethod="get">Edit</button>
-		</form>
+		
+		apply . film-controls
 
 		if (exists(/.user.id)) {
 			apply . film-watchlist-controls
 		}
 
 	</div>
+}
+
+match .film film-controls {
+	<form>
+		<button type="submit" formaction="/film/{.id}/delete" formmethod="post">&times;</button>
+		<button type="submit" formaction="/film/{.id}/edit" formmethod="get">Edit</button>
+	</form>
 }
 
 match .film film-watchlist-controls {
