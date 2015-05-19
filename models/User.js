@@ -17,6 +17,10 @@ module.exports = {
 		watchlist: {
 			collection: 'watchlist',
 			via: 'user'
+		},
+		role: {
+			type: 'string',
+			defaultsTo: 'user'
 		}
 	},
 

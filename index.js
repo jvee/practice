@@ -49,7 +49,8 @@ orm.init(function (err, orm) {
     // TODO: remove or setup super user over config
     orm.collections.user.new({
       login: 'admin',
-      password: ''
+      password: '',
+      role: 'admin'
     }, function () {
       console.log('[SuperUser]: inited');
     });
