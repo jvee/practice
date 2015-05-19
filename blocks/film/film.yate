@@ -3,26 +3,42 @@ match .film film {
 		@style = ( 
 			"display: inline-block;"
 			"vertical-align: top;"
-			"margin: 10px;"
-			"height: 400px;"
-			"width: 210px;"
+			"margin: 7px 7px 20px;"
+			"width: 175px;"
 			)
+		<div class='film__poster'>
+			@style = (
+				"height: 250px;"
+				"overflow: hidden;"
+				"margin-bottom: 5px;"
+				)
+			<img src="{.poster}" width="175"/>
+		</div>
+
+		if (exists(/.user.id)) {
+			apply . film-watchlist-controls
+		}
+
 		<h3 class="film__title">
+			@style = (
+				"font: 15px/1.2 Helvetica;"
+				"font-weight: bold;"
+				"margin: .3em 0"
+				)
 			.title
 		</h3>
-		<div class='film__poster'>
-			<img src="{.poster}" height="300"/>
-		</div>
+
 		<span class="film__rating">
+			@style = (
+				if (.rating > 7) { "color: green" }
+				if (.rating > 6 && .rating < 7) { "color: orange" }
+				if (.rating < 6) { "color: red" }
+				)
 			.rating
 		</span>
 
 		if (/.user.role == 'admin') {
 			apply . film-managment-controls
-		}
-
-		if (exists(/.user.id)) {
-			apply . film-watchlist-controls
 		}
 
 	</div>
@@ -58,7 +74,7 @@ match .film film-watchlist-controls {
 
 			if (watchlistItem && watchlistItem.watched) {
 				@value = '0'
-				'Убрать из просмотренных'
+				'Из просмотренных'
 			} else {
 				@value = '1'
 				'В просмотренные'
