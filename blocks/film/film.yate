@@ -16,8 +16,10 @@ match .film film {
 		<span class="film__rating">
 			.rating
 		</span>
-		
-		apply . film-controls
+
+		if (/.user.role == 'admin') {
+			apply . film-managment-controls
+		}
 
 		if (exists(/.user.id)) {
 			apply . film-watchlist-controls
@@ -26,7 +28,7 @@ match .film film {
 	</div>
 }
 
-match .film film-controls {
+match .film film-managment-controls {
 	<form>
 		<button type="submit" formaction="/film/{.id}/delete" formmethod="post">&times;</button>
 		<button type="submit" formaction="/film/{.id}/edit" formmethod="get">Edit</button>
