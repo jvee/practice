@@ -28,14 +28,20 @@ match .film film {
 			.title
 		</h3>
 
-		<span class="film__rating">
-			@style = (
-				if (.rating > 7) { "color: green" }
-				if (.rating > 6 && .rating < 7) { "color: orange" }
-				if (.rating < 6) { "color: red" }
-				)
-			.rating
-		</span>
+		if (.rating) {
+			<span class="film__rating">
+				@style = (
+					"font: 13px/1.2 Helvetica;"
+					"padding: 1px 7px;"
+					"border-radius: 5px;"
+					"border: 1px solid #ddd;"
+					if (.rating > 7) { "color: green;" }
+					if (.rating > 6 && .rating < 7) { "color: orange;" }
+					if (.rating < 6) { "color: red;" }
+					)
+				.rating
+			</span>
+		}
 
 		if (/.user.role == 'admin') {
 			apply . film-managment-controls
